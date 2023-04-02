@@ -22,5 +22,8 @@
     "solhint": "^3.4.1",
     "solidity-coverage": "^0.8.2",
     "typechain": "^8.1.1"
+  },
+  "scripts": {
+    "compile": "yarn hardhat compile"
   }
 }

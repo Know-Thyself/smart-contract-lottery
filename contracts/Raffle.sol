@@ -15,6 +15,13 @@ error Raffle__UpkeepNotNeeded(
     uint256 raffleState
 );
 
+/**
+ * @title A Sample Raffle Contract
+ * @author Biruk Kebede
+ * @notice This contract is a demo of an untamperable discentralised smart contract
+ * @dev This contract implements chainlink VRF V2 and chainlink keepers
+ */
+
 contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     /* Type declarations */
     // the raffle state could be open, closed, pending or calculating/processing
@@ -44,6 +51,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     event requestedRaffleWinner(uint256 indexed requestId);
     event winnerPicked(address indexed winner);
 
+    /* Functions */
     constructor(
         address vrfCoordinatorV2,
         uint256 entranceFee,
@@ -132,6 +140,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
         return (upkeepNeeded, "0x0");
     }
 
+    /* View/Pure Getter functions */
     function getEntranceFee() public view returns (uint256) {
         return i_entranceFee;
     }
@@ -142,5 +151,25 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
 
     function getRecentWinner() public view returns (address) {
         return s_recentWinner;
+    }
+
+    function getRaffleState() public view returns (RaffleState) {
+        return s_raffleState;
+    }
+
+    function getNumWords() public pure returns (uint32) {
+        return NUM_WORDS;
+    }
+
+    function getNumberOfPlayers() public view returns (uint256) {
+        return s_players.length;
+    }
+
+    function getLatestTimestamp() public view returns (uint256) {
+        return s_lastTimeStamp;
+    }
+
+    function getRequestConfirmations() public pure returns (uint256) {
+        return REQUEST_CONFIRMATIONS;
     }
 }
