@@ -1,10 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
-import "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
-// AutomationCompatible.sol imports the functions from both ./AutomationBase.sol and
-// ./interfaces/AutomationCompatibleInterface.sol
-import "@chainlink/contracts/src/v0.8/AutomationCompatible.sol";
+import "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
+import "@chainlink/contracts/src/v0.8/interfaces/AutomationCompatibleInterface.sol";
+import "hardhat/console.sol";
 
 error Raffle__NotEnoughETHEntered();
 error Raffle__TransferFailed();
@@ -17,7 +16,7 @@ error Raffle__UpkeepNotNeeded(
 
 /**
  * @title A Sample Raffle Contract
- * @author Biruk Kebede
+ * @author Biruk Kebede learning from Patrick Collins
  * @notice This contract is a demo of an untamperable discentralised smart contract
  * @dev This contract implements chainlink VRF V2 and chainlink keepers
  */
@@ -147,6 +146,10 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
 
     function getPlayer(uint256 index) public view returns (address) {
         return s_players[index];
+    }
+
+    function getInterval() public view returns (uint256) {
+        return i_interval;
     }
 
     function getRecentWinner() public view returns (address) {

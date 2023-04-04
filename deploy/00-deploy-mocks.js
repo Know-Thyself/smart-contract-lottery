@@ -11,7 +11,7 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
 
 	if (developmentChains.includes(network.name)) {
 		log('Local network! Deploying mocks...')
-		await deploy('vrfCoordinatorV2Mock', {
+		await deploy('VRFCoordinatorV2Mock', {
 			from: deployer,
 			log: true,
 			args: [BASE_FEE, GAS_PRICE_LINK],
