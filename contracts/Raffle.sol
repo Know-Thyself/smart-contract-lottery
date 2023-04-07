@@ -46,9 +46,9 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     uint256 private immutable i_interval;
 
     /* Events */
-    event raffleEnter(address indexed player);
-    event requestedRaffleWinner(uint256 indexed requestId);
-    event winnerPicked(address indexed winner);
+    event RaffleEnter(address indexed player);
+    event RequestedRaffleWinner(uint256 indexed requestId);
+    event WinnerPicked(address indexed winner);
 
     /* Functions */
     constructor(
@@ -79,7 +79,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
         }
         s_players.push(payable(msg.sender));
 
-        emit raffleEnter(msg.sender);
+        emit RaffleEnter(msg.sender);
     }
 
     // Pick a verifyabily random winner using Chainlink Oracle
@@ -102,7 +102,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
             NUM_WORDS
         );
         s_raffleState = RaffleState.CALCULATING;
-        emit requestedRaffleWinner(requestId);
+        emit RequestedRaffleWinner(requestId);
     }
 
     function fulfillRandomWords(
@@ -116,7 +116,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
         if (!success) {
             revert Raffle__TransferFailed();
         }
-        emit winnerPicked(recentWinner);
+        emit WinnerPicked(recentWinner);
         s_raffleState = RaffleState.OPEN;
         s_players = new address payable[](0);
         s_lastTimeStamp = block.timestamp;
@@ -168,7 +168,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
         return s_players.length;
     }
 
-    function getLatestTimestamp() public view returns (uint256) {
+    function getLastTimeStamp() public view returns (uint256) {
         return s_lastTimeStamp;
     }
 
