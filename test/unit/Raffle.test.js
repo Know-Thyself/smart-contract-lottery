@@ -179,7 +179,7 @@ const { assert, expect } = require('chai')
 						raffle = raffleContract.connect(accounts[i])
 						await raffle.enterRaffle({ value: raffleEntranceFee })
 					}
-					const startingTimeStamp = await raffle.getLastTimeStamp()
+					const startingTimeStamp = await raffle.getLatestTimestamp()
 				})
 
 				it('picks a winner, resets, and sends money', async () => {
@@ -193,7 +193,7 @@ const { assert, expect } = require('chai')
 						raffle = raffleContract.connect(accounts[i]) // Returns a new instance of the Raffle contract connected to player
 						await raffle.enterRaffle({ value: raffleEntranceFee })
 					}
-					const startingTimeStamp = await raffle.getLastTimeStamp() // stores starting timestamp (before we fire our event)
+					const startingTimeStamp = await raffle.getLatestTimestamp() // stores starting timestamp (before we fire our event)
 
 					// This will be more important for our staging tests...
 					await new Promise(async (resolve, reject) => {
@@ -204,7 +204,7 @@ const { assert, expect } = require('chai')
 								const recentWinner = await raffle.getRecentWinner()
 								const raffleState = await raffle.getRaffleState()
 								const winnerBalance = await accounts[2].getBalance()
-								const endingTimeStamp = await raffle.getLastTimeStamp()
+								const endingTimeStamp = await raffle.getLatestTimestamp()
 								await expect(raffle.getPlayer(0)).to.be.reverted
 								// Comparisons to check if our ending values are correct:
 								assert.equal(recentWinner.toString(), accounts[2].address)
