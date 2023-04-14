@@ -1,5 +1,5 @@
 const { network, ethers } = require('hardhat')
-const { developmentChains, networkConfig } = require('../helper-hardhat-config')
+const { developmentChains } = require('../helper-hardhat-config')
 
 const BASE_FEE = ethers.utils.parseEther('0.25') // 0.25 LINK is the premium cost
 const GAS_PRICE_LINK = 1e8
